@@ -22,7 +22,7 @@ package org.sonarsource.plugins.example.hooks;
 import org.sonar.api.ce.posttask.PostProjectAnalysisTask;
 import org.sonar.api.ce.posttask.QualityGate;
 import org.sonar.api.utils.log.Loggers;
-import org.sonar.api.ce.posttask.Branch.Type;
+import org.sonar.api.ce.posttask.Branch;
 
 /**
  * Logs the Quality gate status in Compute Engine when analysis is finished (browse
@@ -32,7 +32,7 @@ import org.sonar.api.ce.posttask.Branch.Type;
 public class DisplayQualityGateStatus implements PostProjectAnalysisTask {
   @Override
   public void finished(ProjectAnalysis analysis) {
-    if(analysis.getBranch() != null && analysis.getBranch().getType() == Type.PULL_REQUEST) {      
+    if(analysis.getBranch() != null && analysis.getBranch().getType() == Branch.Type.PULL_REQUEST) {      
       QualityGate gate = analysis.getQualityGate();
       if (gate != null) {
         Loggers.get(getClass()).info("Quality gate is " + gate.getStatus());
